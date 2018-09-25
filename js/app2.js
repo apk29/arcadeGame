@@ -9,6 +9,7 @@ class Character {
 		// a helper we've provided to easily load images
 		this.sprite = 'images/';
 	}
+	// Draw the enemy on the screen, required method for game.
 	render() {
 		ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 	}
@@ -20,12 +21,11 @@ class Enemy extends Character {
 		this.sprite += 'enemy-bug.png';
 		this.x = x;
 		this.y = y;
-		this.speed = (100 + Math.floor(Math.random() * 100))
+		this.speed = (100 + Math.floor(Math.random() * 400))
 	}
 	update(dt) {
 		this.x += this.speed * dt;
 		if (this.x > 550) {
-			this.speed = 100 + Math.floor(Math.random() * 100);
 			this.x = -100;
 		}
 	}
@@ -33,56 +33,54 @@ class Enemy extends Character {
 
 //Character - boy
 class Player extends Character {
-  constructor(x, y) {
-    super();
-    this.x = x;
-    this.y = y;
-    this.sprite += 'char-boy.png';
-  }
+	constructor(x, y) {
+		super();
+		this.x = x;
+		this.y = y;
+		this.sprite += 'char-boy.png';
+	}
 
-   //this uses the keyUp event listener to move player objects around
-  handleInput(allowedKeys) {
-    switch (allowedKeys) {
-      case 'left':
-        if (this.x > 10 && isPlaying === true) {
-          this.x -= 50.5;
-        }
-        break;
-      case 'up':
-        if (this.y > 10 && isPlaying === true) {
-          this.y -= 50.5;
-        }
-        break;
-      case 'right':
-        if (this.x < 355 && isPlaying === true) {
-          this.x += 50.5;
-        }
-        break;
-      case 'down':
-        if (this.y < 400 && isPlaying === true)
-        this.y += 50.5;
-        break;
-    }
-  }
+	//this uses the keyUp event listener to move player objects around
+	handleInput(allowedKeys) {
+		switch (allowedKeys) {
+			case 'left':
+				if (this.x > 10 && isPlaying === true) {
+					this.x -= 50.5;
+				}
+				break;
+			case 'up':
+				if (this.y > 10 && isPlaying === true) {
+					this.y -= 50.5;
+				}
+				break;
+			case 'right':
+				if (this.x < 355 && isPlaying === true) {
+					this.x += 50.5;
+				}
+				break;
+			case 'down':
+				if (this.y < 400 && isPlaying === true)
+					this.y += 50.5;
+				break;
+		}
+	}
 
 
-update(dt) {
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
-    if (this.y === 0 && isPlaying == true) {
-      setTimeout (function() {
-        showModal();
-        isPlaying = false;
-      }, 200);
-    }
+	update(dt) {
+		// You should multiply any movement by the dt parameter
+		// which will ensure the game runs at the same speed for
+		// all computers.
+		if (this.y === 0 && isPlaying == true) {
+			showModal();
+			isPlaying = false;
 
-  }
-   // Reset player
-  reset() {
-    this.x = 202;
-    this.y = 303;
-  }
+		}
+	}
+	// Reset player
+	reset() {
+		this.x = 202;
+		this.y = 303;
+	}
 }
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
@@ -95,51 +93,48 @@ let isPlaying = true;
 
 // This listens for key presses and sends the keys to your
 // handleInput() method.
-document.addEventListener('keyup', function(e) {
-    var allowedKeys = {
-        37: 'left',
-        38: 'up',
-        39: 'right',
-        40: 'down'
-    };
+document.addEventListener('keyup', function (e) {
+	var allowedKeys = {
+		37: 'left',
+		38: 'up',
+		39: 'right',
+		40: 'down'
+	};
 
-    player.handleInput(allowedKeys[e.keyCode]);
+	player.handleInput(allowedKeys[e.keyCode]);
 });
 
 //function to open modal when player reaches water
 function showModal() {
-  document.querySelector('.modal-content').style.display = 'block';
+	document.querySelector('.modal-content').style.display = 'block';
 }
 
 //function to hide modal, called when keep playing button is pressed
 function closeModal() {
-  document.querySelector('.modal-content').style.display = 'none';
+	document.querySelector('.modal-content').style.display = 'none';
 }
 
 //listens for keep playing button and calls closeModal
 let modal = document.querySelector('.modal-content');
 
 //listens to keep playing button and closes modal and when clicked
-modal.addEventListener('click', function() {
-  closeModal();
-  isPlaying = true;
-  player.reset();
-  allEnemies.forEach(function(enemy) {
-    enemy.x = -100;
-    enemy.speed = 100 + Math.floor(Math.random() * 100);
-  });
+modal.addEventListener('click', function () {
+	closeModal();
+	isPlaying = true;
+	player.reset();
+	allEnemies.forEach(function (enemy) {
+		enemy.x = -100;
+	});
 });
-
 
 
 //collision 
 function checkCollisions() {
-  if (player.y === 202 && player.x >= (allEnemies[2].x - 20) && player.x <= (allEnemies[2].x + 75)) {
-    player.reset();
-  } else if ((player.y === 151.5 || player.y === 101) && player.x >= (allEnemies[1].x - 20) && player.x <= (allEnemies[1].x + 75)) {
-      player.reset();
-  } else if (player.y === 50.5 && player.x >= (allEnemies[0].x - 20) && player.x <= (allEnemies[0].x + 75)) {
-      player.reset();
-  }
+	if (player.y === 202 && player.x >= (allEnemies[2].x - 20) && player.x <= (allEnemies[2].x + 75)) {
+		player.reset();
+	} else if ((player.y === 151.5 || player.y === 101) && player.x >= (allEnemies[1].x - 20) && player.x <= (allEnemies[1].x + 75)) {
+		player.reset();
+	} else if (player.y === 50.5 && player.x >= (allEnemies[0].x - 20) && player.x <= (allEnemies[0].x + 75)) {
+		player.reset();
+	}
 }
-
