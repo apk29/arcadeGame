@@ -30,3 +30,12 @@ class Enemy extends Character {
 		}
 	}
 }
+
+//Character - boy
+class Player extends Character {
+  constructor(x, y) {
+    super();
+    this.x = x;
+    this.y = y;
+    this.sprite += 'char-boy.png';
+  }
