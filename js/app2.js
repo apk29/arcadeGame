@@ -45,7 +45,7 @@ class Player extends Character {
 		switch (allowedKeys) {
 			case 'left':
 				if (this.x > 10 && isPlaying === true) {
-					this.x -= 50.5;
+					// this.x -= 50.5;
 				}
 				break;
 			case 'up':

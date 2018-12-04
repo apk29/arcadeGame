@@ -2,7 +2,7 @@ frontend-nanodegree-arcade-game
 ===============================
 # Arcade Game Project
 Description:
-A responsive arcade frogger game where the user has to cross a road way while avoide being run over by enemy bugs.
+A responsive arcade frogger game where the user has to cross a road way while avoiding enemy bugs.
 
 To Play:
 Use the arrow keys to maneuver your player safely across the roadway to the water without getting hit. 
